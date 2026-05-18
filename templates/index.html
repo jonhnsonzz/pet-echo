@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetEcho — Your Pet's Emotional Mirror</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #FF8C7A;
+            --secondary: #FFB4A2;
+            --accent: #6B5B95;
+            --bg: #FFF9F5;
+            --text: #2D2D2D;
+            --text-light: #6B6B6B;
+            --card-bg: #FFFFFF;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --radius: 20px;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 0 30px;
+        }
+        
+        .logo {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+        
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        
+        .tagline {
+            font-size: 16px;
+            color: var(--text-light);
+            max-width: 320px;
+            margin: 0 auto;
+        }
+        
+        /* Pet Form */
+        .pet-form {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 28px;
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+        
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        input, select, textarea {
+            padding: 14px 16px;
+            border: 2px solid #F0F0F0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: #FAFAFA;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(255,140,122,0.15);
+            background: #FFF;
+        }
+        
+        textarea {
+            min-height: 160px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        
+        /* Mood Tags */
+        .mood-section {
+            margin-bottom: 20px;
+        }
+        
+        .mood-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .mood-tag {
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+            opacity: 0.6;
+        }
+        
+        .mood-tag:hover {
+            transform: scale(1.05);
+            opacity: 0.8;
+        }
+        
+        .mood-tag.selected {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255,140,122,0.35);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Loading State */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .loading.show {
+            display: block;
+        }
+        
+        .loading-paw {
+            font-size: 48px;
+            animation: bounce 1s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .loading-text {
+            margin-top: 12px;
+            color: var(--text-light);
+            font-size: 15px;
+        }
+        
+        /* Insight Card */
+        .insight-card {
+            display: none;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 28px;
+            box-shadow: var(--shadow);
+            margin-top: 24px;
+            animation: slideUp 0.5s ease;
+        }
+        
+        .insight-card.show {
+            display: block;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .insight-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #F5F5F5;
+        }
+        
+        .insight-avatar {
+            font-size: 36px;
+        }
+        
+        .insight-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .insight-content {
+            font-size: 15px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            color: var(--text);
+        }
+        
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .feature-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+        
+        .feature-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        
+        .feature-desc {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-light);
+            font-size: 13px;
+        }
+        
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #E0E0E0, transparent);
+            margin: 40px 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 480px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🐾</div>
+            <h1>PetEcho</h1>
+            <p class="tagline">Every moment with your pet tells a story. Let us listen.</p>
+        </header>
+        
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">💭</div>
+                <div class="feature-title">Emotional Insights</div>
+                <div class="feature-desc">AI reads between the lines of your stories</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <div class="feature-title">Weekly Summary</div>
+                <div class="feature-desc">Heartfelt reflections on your bond</div>
+            </div>
+        </div>
+        
+        <div class="pet-form">
+            <form id="echoForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="petName">Pet's Name</label>
+                        <input type="text" id="petName" placeholder="Mochi" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="petSpecies">Species</label>
+                        <select id="petSpecies">
+                            <option value="Cat">🐱 Cat</option>
+                            <option value="Dog">🐕 Dog</option>
+                            <option value="Bird">🐦 Bird</option>
+                            <option value="Rabbit">🐰 Rabbit</option>
+                            <option value="Hamster">🐹 Hamster</option>
+                            <option value="Fish">🐠 Fish</option>
+                            <option value="Other">🐾 Other</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="petBreed">Breed</label>
+                        <input type="text" id="petBreed" placeholder="Scottish Fold">
+                    </div>
+                    <div class="form-group">
+                        <label for="petAge">Age</label>
+                        <input type="text" id="petAge" placeholder="3 years">
+                    </div>
+                </div>
+                
+                <div class="form-group full mood-section">
+                    <label>How was this moment? (optional)</label>
+                    <div class="mood-tags" id="moodTags">
+                        <!-- Moods loaded via API -->
+                    </div>
+                </div>
+                
+                <div class="form-group full">
+                    <label for="story">Share Your Moment</label>
+                    <textarea id="story" placeholder="Tell us about a moment that touched your heart with your pet today..."></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span>💕</span>
+                    <span>Get PetEcho's Insight</span>
+                </button>
+            </form>
+            
+            <div class="loading" id="loading">
+                <div class="loading-paw">🐾</div>
+                <div class="loading-text">PetEcho is listening...</div>
+            </div>
+        </div>
+        
+        <div class="insight-card" id="insightCard">
+            <div class="insight-header">
+                <div class="insight-avatar">🐾</div>
+                <div>
+                    <div class="insight-title">PetEcho's Insight</div>
+                </div>
+            </div>
+            <div class="insight-content" id="insightContent"></div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <footer>
+            <p>Made with 💕 for pet parents who believe<br>every pet has a story worth understanding</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Generate a simple device ID for this browser
+        let deviceId = localStorage.getItem('petEchoDeviceId');
+        if (!deviceId) {
+            deviceId = 'pet_' + Math.random().toString(36).substr(2, 9);
+            localStorage.setItem('petEchoDeviceId', deviceId);
+        }
+        
+        let selectedMoods = [];
+        
+        // Load mood options
+        fetch('/api/moods')
+            .then(r => r.json())
+            .then(data => {
+                const container = document.getElementById('moodTags');
+                data.moods.forEach(mood => {
+                    const tag = document.createElement('div');
+                    tag.className = 'mood-tag';
+                    tag.dataset.id = mood.id;
+                    tag.style.background = mood.color + '30';
+                    tag.innerHTML = `${mood.emoji} ${mood.label}`;
+                    tag.onclick = () => {
+                        tag.classList.toggle('selected');
+                        if (tag.classList.contains('selected')) {
+                            selectedMoods.push(mood.id);
+                        } else {
+                            selectedMoods = selectedMoods.filter(m => m !== mood.id);
+                        }
+                    };
+                    container.appendChild(tag);
+                });
+            });
+        
+        // Handle form submission
+        document.getElementById('echoForm').onsubmit = async (e) => {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submitBtn');
+            const loading = document.getElementById('loading');
+            const insightCard = document.getElementById('insightCard');
+            const insightContent = document.getElementById('insightContent');
+            
+            btn.disabled = true;
+            loading.classList.add('show');
+            insightCard.classList.remove('show');
+            
+            const data = {
+                petName: document.getElementById('petName').value,
+                petSpecies: document.getElementById('petSpecies').value,
+                petBreed: document.getElementById('petBreed').value,
+                petAge: document.getElementById('petAge').value,
+                story: document.getElementById('story').value,
+                moodTags: selectedMoods,
+                deviceId: deviceId
+            };
+            
+            try {
+                const response = await fetch('/api/journal', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    insightContent.innerHTML = result.entry.aiInsight.replace(/\n/g, '<br>');
+                    insightCard.classList.add('show');
+                    window.scrollTo({ top: insightCard.offsetTop - 20, behavior: 'smooth' });
+                } else {
+                    alert(result.error || 'Something went wrong. Please try again.');
+                }
+            } catch (err) {
+                alert('Connection error. Please check if the server is running.');
+            } finally {
+                btn.disabled = false;
+                loading.classList.remove('show');
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+[
+    {
+        "id": "entry_001",
+        "pet_name": "Mochi",
+        "pet_species": "Cat",
+        "pet_breed": "Scottish Fold",
+        "pet_age": "3 years",
+        "date": "2026-05-12",
+        "story": "Today Mochi did something she's never done before—she hopped onto my lap while I was crying. She didn't meow or demand food. She just sat there, purring softly, her warm body pressed against my stomach. After about twenty minutes, she looked up at me with those big round eyes, as if to say 'It's going to be okay.' I've had her for two years, but today felt like we finally understood each other.",
+        "mood_tags": ["connected", "healing", "breakthrough"],
+        "ai_insight": null
+    },
+    {
+        "id": "entry_002",
+        "pet_name": "Mochi",
+        "pet_species": "Cat",
+        "pet_breed": "Scottish Fold",
+        "pet_age": "3 years",
+        "date": "2026-05-13",
+        "story": "Mochi woke me up at 5am by gently tapping my face with her paw. At first I was annoyed, but then I noticed—she was staring at the window. There was a bird outside, a beautiful cardinal. We watched it together for ten minutes before it flew away. Mochi then curled up next to me and we both went back to sleep. It was a small moment, but it felt sacred.",
+        "mood_tags": ["peaceful", "mindful", "shared"],
+        "ai_insight": null
+    },
+    {
+        "id": "entry_003",
+        "pet_name": "Biscuit",
+        "pet_species": "Dog",
+        "pet_breed": "Golden Retriever",
+        "pet_age": "7 years",
+        "date": "2026-05-14",
+        "story": "Biscuit has been acting strange lately. He used to greet me at the door with full-body wags, but these past few days he's been waiting by his bed instead. Today I sat on the floor next to him and just scratched his ears without saying anything. After a while, he rested his head on my thigh and sighed—this big, heavy sigh. I think he knows I've been stressed with work. Dogs are so perceptive it's almost supernatural.",
+        "mood_tags": ["intuitive", "concerned", "supportive"],
+        "ai_insight": null
+    }
+]
