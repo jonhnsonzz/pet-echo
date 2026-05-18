@@ -1,53 +1,68 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+
 # PetEcho 🐾 — Pet Symptom Helper
 
 **"Something's wrong with my pet. Should I rush to the vet or wait?"**
 
 > It's 2 AM. Your cat has diarrhea. You're not sure if it's an emergency or something you can monitor at home. You Google it and find nothing but vet ads. PetEcho tells you: what's likely causing it, when to see a vet, and what to watch for.
 
-## 😰 Sound familiar?
+[中文说明](README_CN.md)
 
-- Your pet is vomiting/diarrhea but still acting fine — ER or wait?
+---
+
+## 😰 The Problem
+
+Every pet owner knows this feeling:
+
+- Your pet is vomiting/diarrhea but still acting fine — is it an emergency?
 - Dog suddenly won't eat — picky or actually sick?
-- Pet is hiding, lethargic, or acting weird — bad mood or something serious?
 - It's midnight, vet is closed — what can you do right now?
-- You want to avoid an unnecessary vet visit, but you also don't want to wait if it's serious
+- You want to avoid an unnecessary vet bill, but you also don't want to delay real treatment
 
-**PetEcho is built for exactly these moments.**
+**PetEcho is built for these moments — helping you make a smarter decision when you're unsure.**
 
-## What PetEcho Does
+## ✨ Features
 
-After you describe what's going on with your pet:
+- **Symptom Assessment** — Describe what's happening, get an informed severity判断
+- **Home Care Guidance** — What to monitor, when it can wait, when it can't
+- **Trend Tracking** — Log over time so patterns become visible
+- **Reduce Anxiety** — Not every late-night incident needs an ER run
 
-1. **Assess severity** — Is this common and minor, or does it warrant immediate vet attention?
-2. **Home care guidance** — What can you do at home, how long to monitor, what symptoms are red flags
-3. **Track over time** — Log changes so patterns emerge and decisions get easier
-4. **Reduce anxiety** — Not every late-night incident needs an ER run, but you want to be sure
+## 📱 Compatibility
 
-## 📱 Works On
+Works in any phone browser — **WeChat, Chrome, Safari**. No app download, no account needed.
 
-Any phone browser — WeChat, Chrome, Safari. No app download, no account needed.
+## 🔒 Privacy
 
-## 🔒 Your Data, Your Device
-
-- Everything stays local on your device — nothing uploaded to any server
+- All data stored **locally on your device** — nothing uploaded to any server
 - No phone number, email, or account required
 - No tracking, no data selling
 
+---
+
 ## 🚀 Quick Start
 
-### Requirements
+### Prerequisites
+
 - Python 3.8+
 - OpenAI API Key
 
-### Install
+### Installation
 
 ```bash
 git clone https://github.com/jonhnsonzz/pet-echo.git
 cd pet-echo
 pip install -r requirements.txt
+```
+
+### Configuration
+
+Copy the environment template and add your API key:
+
+```bash
 cp .env.example .env
-# Add your OpenAI API key to .env:
-# OPENAI_API_KEY=your_key_here
+# Edit .env and set: OPENAI_API_KEY=your_key_here
 ```
 
 ### Run
@@ -56,9 +71,11 @@ cp .env.example .env
 python app.py
 ```
 
-Then open `http://your-server-ip:5000` in your phone browser.
+Open `http://localhost:5000` in your phone browser.
 
-## Project Structure
+---
+
+## 📂 Project Structure
 
 ```
 pet-echo/
@@ -66,19 +83,31 @@ pet-echo/
 ├── prompts.py          # AI analysis prompts
 ├── requirements.txt    # Python dependencies
 ├── templates/
-│   └── index.html     # Frontend (mobile-optimized)
+│   └── index.html     # Frontend UI (mobile-optimized)
 └── data/
     └── sample_entries.json  # Sample data
 ```
 
-## Philosophy
+---
 
-You are the best observer of your pet — you live with them every day, you know what's normal for them.
+## 💡 Philosophy
 
-What you lack is a bridge between your observations and medical judgment.
+You are the best observer of your pet — you know them best.
 
-PetEcho is not a medical device. It cannot replace a vet. What it does: **help you make a more informed decision when you're unsure whether to seek care.**
+What you lack is not expertise, but **a bridge between your observations and good judgment**.
+
+PetEcho is not a medical device. It cannot replace a vet. What it does: help you make a more informed decision when you're unsure whether to seek care.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests.
 
 ## 📄 License
 
 MIT License — free to use, including commercially.
+
+---
+
+**Made for pet parents who want to make smarter care decisions.** 🐶🐱
