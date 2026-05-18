@@ -1,48 +1,53 @@
-# PetEcho 🐾
+# PetEcho 🐾 — Pet Symptom Helper
 
-**Your Pet's Emotional Mirror**
+**"Something's wrong with my pet. Should I rush to the vet or wait?"**
 
-> Every moment with your pet tells a story. PetEcho listens, understands, and reflects.
+> It's 2 AM. Your cat has diarrhea. You're not sure if it's an emergency or something you can monitor at home. You Google it and find nothing but vet ads. PetEcho tells you: what's likely causing it, when to see a vet, and what to watch for.
 
-PetEcho is an AI-powered emotional companion that transforms your daily moments with your pet into deep emotional insights. Unlike health trackers that measure steps and calories, PetEcho focuses on what truly matters—the emotional bond between you and your companion.
+## 😰 Sound familiar?
 
-## ✨ Features
+- Your pet is vomiting/diarrhea but still acting fine — ER or wait?
+- Dog suddenly won't eat — picky or actually sick?
+- Pet is hiding, lethargic, or acting weird — bad mood or something serious?
+- It's midnight, vet is closed — what can you do right now?
+- You want to avoid an unnecessary vet visit, but you also don't want to wait if it's serious
 
-### 💭 Emotional Intelligence
-Share any moment from your day—a quirky behavior, a tender interaction, a funny accident—and PetEcho will decode the emotional narrative behind it. Understand what your pet is really feeling.
+**PetEcho is built for exactly these moments.**
 
-### 📊 Weekly Bond Reports
-Get AI-generated weekly summaries that highlight patterns in your pet's emotional well-being, memorable moments you've shared, and actionable tips to strengthen your connection.
+## What PetEcho Does
 
-### 🎭 Mood Tracking
-Tag your entries with emotional moods. Over time, PetEcho helps you see the emotional journey of your pet—and your relationship.
+After you describe what's going on with your pet:
 
-### 🔒 Privacy First
-- All data stays local to your device
-- No account required
-- No tracking, no selling data
-- Device ID-based storage
+1. **Assess severity** — Is this common and minor, or does it warrant immediate vet attention?
+2. **Home care guidance** — What can you do at home, how long to monitor, what symptoms are red flags
+3. **Track over time** — Log changes so patterns emerge and decisions get easier
+4. **Reduce anxiety** — Not every late-night incident needs an ER run, but you want to be sure
+
+## 📱 Works On
+
+Any phone browser — WeChat, Chrome, Safari. No app download, no account needed.
+
+## 🔒 Your Data, Your Device
+
+- Everything stays local on your device — nothing uploaded to any server
+- No phone number, email, or account required
+- No tracking, no data selling
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### Requirements
 - Python 3.8+
-- An OpenAI API key
+- OpenAI API Key
 
-### Installation
+### Install
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/pet-echo.git
+git clone https://github.com/jonhnsonzz/pet-echo.git
 cd pet-echo
-
-# Install dependencies
 pip install -r requirements.txt
-
-# Configure your API key
 cp .env.example .env
-# Edit .env and add your OpenAI API key:
-# OPENAI_API_KEY=sk-your-key-here
+# Add your OpenAI API key to .env:
+# OPENAI_API_KEY=your_key_here
 ```
 
 ### Run
@@ -51,87 +56,29 @@ cp .env.example .env
 python app.py
 ```
 
-Open [http://localhost:5000](http://localhost:5000) in your browser.
+Then open `http://your-server-ip:5000` in your phone browser.
 
-### Environment Variables
-
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `OPENAI_API_KEY` | Your OpenAI API key | Yes |
-| `SECRET_KEY` | Flask secret key for sessions | No (uses default) |
-| `PORT` | Server port (default: 5000) | No |
-| `FLASK_ENV` | Set to `development` for debug mode | No |
-
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 pet-echo/
 ├── app.py              # Flask application
-├── prompts.py          # AI prompts for emotional analysis
-├── requirements.txt   # Python dependencies
+├── prompts.py          # AI analysis prompts
+├── requirements.txt    # Python dependencies
 ├── templates/
-│   └── index.html     # Frontend UI
-├── static/            # Static assets (CSS, JS, images)
+│   └── index.html     # Frontend (mobile-optimized)
 └── data/
-    └── sample_entries.json  # Sample data (for reference)
+    └── sample_entries.json  # Sample data
 ```
 
-## 🎨 How It Works
+## Philosophy
 
-1. **Share a Moment**: Write about any interaction with your pet—a walk, a cuddle, a funny moment
-2. **AI Analysis**: PetEcho's emotional intelligence analyzes the narrative for behavioral patterns, emotional signals, and bond indicators
-3. **Get Insights**: Receive warm, actionable insights about your pet's emotional state and your relationship
-4. **Track Progress**: Build a diary of moments and watch your pet's emotional journey unfold
+You are the best observer of your pet — you live with them every day, you know what's normal for them.
 
-## 💡 The Philosophy
+What you lack is a bridge between your observations and medical judgment.
 
-We believe the most important data about your pet isn't measured in steps or calories—it's in the quality of the moments you share.
-
-PetEcho is built on the insight that **pet owners are the best source of emotional data**. Your observations, your stories, your interpretations are more valuable than any sensor reading.
-
-The result is a new kind of pet tech: one that starts with the heart, not the hardware.
-
-## 🔧 API Endpoints
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/` | GET | Landing page |
-| `/api/journal` | POST | Create new diary entry |
-| `/api/journal/<device_id>` | GET | Get all entries for a device |
-| `/api/journal/<device_id>/weekly-summary` | GET | Get AI weekly summary |
-| `/api/moods` | GET | Get available mood tags |
-
-## 🌐 Deployment
-
-### Docker
-
-```dockerfile
-FROM python:3.11-slim
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
-EXPOSE 5000
-CMD ["python", "app.py"]
-```
-
-### Railway, Render, Fly.io
-
-Set the `OPENAI_API_KEY` environment variable in your dashboard and deploy.
-
-## 📖 Documentation
-
-- [English Documentation](README.md) ← You are here
-- [中文文档](README_CN.md)
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+PetEcho is not a medical device. It cannot replace a vet. What it does: **help you make a more informed decision when you're unsure whether to seek care.**
 
 ## 📄 License
 
-MIT License - feel free to use, modify, and distribute.
-
----
-
-**Made with 💕 for pet parents who believe every pet has a story worth understanding.**
+MIT License — free to use, including commercially.
